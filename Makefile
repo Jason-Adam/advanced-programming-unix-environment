@@ -3,10 +3,11 @@ BIN_DIR=bin
 OUTPUT=$(BIN_DIR)/main
 
 OBJ_DIR=obj
+SRC_DIR=src
 
 # Change this to the file you want to compile
 FILE_PREFIX=1-7
-FILE_NAME=$(FILE_PREFIX).c
+FILE_NAME=$(SRC_DIR)/$(FILE_PREFIX).c
 
 CFLAGS=-Wall -Wextra -Werror -pedantic -std=c2x -c
 LDFLAGS=
@@ -24,7 +25,7 @@ build: clean bin_dir obj_dir
 .PHONY: compile
 compile:
 	$(COMPILE) -o $(OBJ_DIR)/$(FILE_PREFIX).o $(FILE_NAME) $(LDLIBS)
-	$(COMPILE) -o $(OBJ_DIR)/apue.o apue.c $(LDLIBS)
+	$(COMPILE) -o $(OBJ_DIR)/apue.o $(SRC_DIR)/apue.c $(LDLIBS)
 
 .PHONY: link
 link:
@@ -32,7 +33,7 @@ link:
 
 .PHONY: run
 run: build
-	@./$(OUTPUT)
+	@./$(OUTPUT) $(ARGS)
 
 .PHONY: valgrind
 valgrind: build
